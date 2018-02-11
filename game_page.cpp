@@ -1,4 +1,5 @@
-
+//
+// Created by peyman on 1/30/18.
 #include <iostream>
 #include "game_page.h"
 #include "result_menu.h"
@@ -93,14 +94,24 @@ void game::mousePressEvent( QMouseEvent* ev )
                 {
                     int cx=ss[i].x+ss[i].reverseCords[j].x;
                     int cy=ss[i].y+ss[i].reverseCords[j].y;
-                
+                    while(cx>=0 && cy>=0 && cx<8 && cy<8 && gameCore.getBoard().a[cx][cy]!=1)
+                    {
+                        gameCore.setBoard(cx,cy,1);
+                        cx=cx+ss[i].reverseCords[j].x;
+                        cy=cy+ss[i].reverseCords[j].y;
+                    }
                 }
                 gameCore.AIchoice();
                 update();
                 break;
             }
         }
-      
+        if(ss.size()==0 && gameCore.suggest(2).size()==0)
+        {
+            this->deleteLater();
+            result *a=new result(200,320,gameCore.score(1),gameCore.score(2));
+            return;
+        }
     }
 }
 //
