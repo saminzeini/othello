@@ -43,7 +43,7 @@ void login::request_login() {
 }
 void login::quit() {
     this->deleteLater();
-   // game *mygame=new game(1000,800,"",0);
+   // game *mygame=new game(1000,800,"medium",0);
 
 
 }
