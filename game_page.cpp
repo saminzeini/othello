@@ -74,7 +74,34 @@ void game::paintEvent(QPaintEvent *) {
         painter.drawEllipse(x*100+50-10,y*100+250-10,20,20);
     }
 }
-
+void game::mousePressEvent( QMouseEvent* ev )
+{
+    if(ev->buttons() == Qt::LeftButton)
+    {
+        std::vector<Suggestion> ss=gameCore.suggest(1);
+        if(ss.size()==0 && gameCore.suggest(2).size())
+            gameCore.AIchoice();
+        const QPoint p = ev->pos();
+        int x=p.x()/100;
+        int y=(p.y()-200)/100;
+        for(int i=0;i<ss.size();i++)
+        {
+            if(ss[i].x==x && ss[i].y==y)
+            {
+                gameCore.setBoard(x,y,1);
+                for(int j=0;j<ss[i].reverseCords.size();j++)
+                {
+                    int cx=ss[i].x+ss[i].reverseCords[j].x;
+                    int cy=ss[i].y+ss[i].reverseCords[j].y;
+                
+                }
+                gameCore.AIchoice();
+                update();
+                break;
+            }
+        }
+      
+    }
 }
 //
 
